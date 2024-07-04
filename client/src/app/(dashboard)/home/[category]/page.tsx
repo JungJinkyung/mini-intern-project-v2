@@ -1,138 +1,27 @@
 import Button from "@/app/components/common/Button";
-import PostList from "@/app/components/lists/PostList";
-import BoardSelectorTab from "@/app/components/tabs/BoardSelectorTab";
+import PostList from "@/app/components/lists/post-list";
+import BoardSelectorTab from "@/app/components/tabs/board-selector-tab";
 import Link from "next/link";
 
 export default () => {
-  const posts = [
+  const posts: Post[] = [
     {
       id: "1",
       category: "string",
-      createdAt: "string",
+      created_time: "string",
       title: "string",
       text: "string",
       file: "string",
       hashtag: ["string"],
-      comment: ["Comment"],
-      viewCount: "string",
-      userId: "string",
-      nickname: "string"
-    },
-    {
-      id: "1",
-      category: "string",
-      createdAt: "string",
-      title: "string",
-      text: "string",
-      file: "string",
-      hashtag: ["string"],
-      comment: ["Comment"],
-      viewCount: "string",
-      userId: "string",
-      nickname: "string"
-    },
-    {
-      id: "1",
-      category: "string",
-      createdAt: "string",
-      title: "string",
-      text: "string",
-      file: "string",
-      hashtag: ["string"],
-      comment: ["Comment"],
-      viewCount: "string",
-      userId: "string",
-      nickname: "string"
-    },
-    {
-      id: "1",
-      category: "string",
-      createdAt: "string",
-      title: "string",
-      text: "string",
-      file: "string",
-      hashtag: ["string"],
-      comment: ["Comment"],
-      viewCount: "string",
-      userId: "string",
-      nickname: "string"
-    },
-    {
-      id: "1",
-      category: "string",
-      createdAt: "string",
-      title: "string",
-      text: "string",
-      file: "string",
-      hashtag: ["string"],
-      comment: ["Comment"],
-      viewCount: "string",
-      userId: "string",
-      nickname: "string"
-    },
-    {
-      id: "1",
-      category: "string",
-      createdAt: "string",
-      title: "string",
-      text: "string",
-      file: "string",
-      hashtag: ["string"],
-      comment: ["Comment"],
-      viewCount: "string",
-      userId: "string",
-      nickname: "string"
-    },
-    {
-      id: "1",
-      category: "string",
-      createdAt: "string",
-      title: "string",
-      text: "string",
-      file: "string",
-      hashtag: ["string"],
-      comment: ["Comment"],
-      viewCount: "string",
-      userId: "string",
-      nickname: "string"
-    },
-    {
-      id: "1",
-      category: "string",
-      createdAt: "string",
-      title: "string",
-      text: "string",
-      file: "string",
-      hashtag: ["string"],
-      comment: ["Comment"],
-      viewCount: "string",
-      userId: "string",
-      nickname: "string"
-    },
-    {
-      id: "1",
-      category: "string",
-      createdAt: "string",
-      title: "string",
-      text: "string",
-      file: "string",
-      hashtag: ["string"],
-      comment: ["Comment"],
-      viewCount: "string",
-      userId: "string",
-      nickname: "string"
-    },
-    {
-      id: "1",
-      category: "string",
-      createdAt: "string",
-      title: "string",
-      text: "string",
-      file: "string",
-      hashtag: ["string"],
-      comment: ["Comment"],
-      viewCount: "string",
-      userId: "string",
+      comment: [
+        {
+          nickname: "string",
+          comment_text: "string",
+          created_time: "string"
+        }
+      ],
+      view_count: "string",
+      user_id: "string",
       nickname: "string"
     }
   ];
