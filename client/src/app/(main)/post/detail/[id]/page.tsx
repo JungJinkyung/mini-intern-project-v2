@@ -1,6 +1,6 @@
-import CommentButton from "@/app/components/buttons/CommentButton";
-import CommentList from "@/app/components/lists/CommentList";
-import HashTag from "@/app/components/tags/HashTag";
+import CommentButton from "@/app/components/buttons/comment-button";
+import CommentList from "@/app/components/lists/comment-list";
+import HashTag from "@/app/components/tags/hash-tag";
 import { Fragment } from "react";
 import { FaChevronLeft } from "react-icons/fa";
 
@@ -8,7 +8,7 @@ export default () => {
   const post = {
     id: "1",
     category: "string",
-    createdAt: "string",
+    created_time: "string",
     title: "임시 제목입니다.",
     text: "임시 내용입니다.",
     file: "string",
@@ -16,27 +16,27 @@ export default () => {
     comment: [
       {
         nickname: "string",
-        commentText: "임시 댓글1 입니다.",
-        createdAt: "string"
+        comment_text: "임시 댓글1 입니다.",
+        created_time: "string"
       },
       {
         nickname: "string",
-        commentText: "임시 댓글2 입니다.",
-        createdAt: "string"
+        comment_text: "임시 댓글2 입니다.",
+        created_time: "string"
       },
       {
         nickname: "string",
-        commentText: "임시 댓글1 입니다.",
-        createdAt: "string"
+        comment_text: "임시 댓글1 입니다.",
+        created_time: "string"
       },
       {
         nickname: "string",
-        commentText: "임시 댓글2 입니다.",
-        createdAt: "string"
+        comment_text: "임시 댓글2 입니다.",
+        created_time: "string"
       }
     ],
-    viewCount: "string",
-    userId: "string",
+    view_count: "string",
+    user_id: "string",
     nickname: "string"
   };
 
@@ -52,7 +52,7 @@ export default () => {
           <div className="border-x-[1px] border-gray-200 px-2">
             지난 시간 pastTime
           </div>
-          <div>{`조회수 ${post?.viewCount}`}</div>
+          <div>{`조회수 ${post?.view_count}`}</div>
         </div>
       </header>
       <main>
