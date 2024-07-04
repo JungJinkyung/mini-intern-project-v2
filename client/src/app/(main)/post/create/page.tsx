@@ -1,6 +1,26 @@
+"use client";
+
 import Button from "@/app/components/common/Button";
+import { useState } from "react";
+import styles from "./page.module.css";
 
 export default () => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [hashtag, setHashtag] = useState("");
+
+  const handleCreatePost = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    console.log(title, content, hashtag);
+
+    try {
+      /* 로그인 api 처리 로직... */
+    } catch (error) {
+      alert("회원가입에 실패했습니다!");
+    }
+  };
+
   return (
     <div className="h-[921px] flex flex-col justify-center items-center">
       <h1 className="text-gray-800 text-[32px] font-bold mt-16 mb-10">
@@ -8,27 +28,26 @@ export default () => {
       </h1>
       <form
         className="flex flex-col gap-y-4 text-xl"
-        // onSubmit={handleCreatePost}
-      >
+        onSubmit={handleCreatePost}>
         <div className="flex items-center gap-x-2">
-          <h2 className="text-xl font-bold w-[140px]">제목</h2>
+          <h2 className={`${styles.title}`}>제목</h2>
           <input
-            className="w-[984px] h-[55px] border-[1px] rounded border-gray-200 px-5 py-4 placeholder-main-orange"
+            className={`${styles["title-input"]}`}
             type="text"
-            /* onChange={handleTitle}
-        placeholder={errors.title && errors.title} */
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="제목을 입력해주세요."
           />
         </div>
         <div className="flex gap-x-2">
-          <h2 className="text-xl font-bold w-[140px] pt-3">내용</h2>
+          <h2 className={`${styles.title} pt-3`}>내용</h2>
           <textarea
-            className="w-[984px] h-[320px] border-[1px] rounded border-[#E1E1E1] px-5 py-4 placeholder-main-orange"
-            /*  onChange={handleText}
-        placeholder={errors.text && errors.text} */
+            className={`${styles.textarea}`}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="내용을 입력해주세요."
           />
         </div>
         <div className="flex items-center gap-x-2">
-          <h2 className="text-xl font-bold w-[140px]">파일 첨부</h2>
+          <h2 className={`${styles.title}`}>파일 첨부</h2>
           <input
             /* ref={fileInputRef} */
             className="hidden"
@@ -36,20 +55,19 @@ export default () => {
             /* onChange={handleFile} */
           />
           <div
-            className="w-[984px] h-[55px] border-[1px] rounded border-[#E1E1E1] px-5 py-4 bg-white cursor-pointer flex justify-start"
+            className={`${styles["file-container"]}`}
             /* onClick={handleFileButtonClick} */
           >
             {/* {file ?? "임시 파일"} */}
-            임시 input 부분
+            아직 사용 불가
           </div>
         </div>
         <div className="flex items-center gap-x-2">
           <h2 className="text-xl font-bold w-[140px]">해시태그</h2>
           <input
-            className="w-[984px] h-[55px] border-[1px] rounded border-[#E1E1E1] px-5 py-4"
-            type="text"
+            className={`${styles["hashtag"]}`}
             placeholder="# 을 붙여주세요!  ex) #해시 #태그 #게시글 #작성"
-            /*  onChange={handleHashtag} */
+            onChange={(e) => setHashtag(e.target.value)}
           />
         </div>
         <Button color="black" size="lg" className="relative m-auto my-10">
