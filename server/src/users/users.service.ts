@@ -11,8 +11,6 @@ export class UsersService {
   ) {}
 
   async createUser(user: Pick<User, 'nickname' | 'email' | 'password'>) {
-    console.log('create user service check', user);
-
     // 이미 존재하는 닉네임 확인
     const nicknameExists = await this.usersRepository.exist({
       where: {

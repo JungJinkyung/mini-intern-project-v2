@@ -40,8 +40,6 @@ export default () => {
       hashtag
     };
 
-    console.log(body);
-
     try {
       fetch("http://localhost:8080/posts", {
         method: "POST",

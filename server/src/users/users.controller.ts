@@ -16,15 +16,4 @@ export class UsersController {
 
     return user;
   }
-
-  // @Post()
-  // createUser(
-  //   @Body('nickname') nickname: string,
-  //   @Body('email') email: string,
-  //   @Body('password') password: string,
-  // ) {
-  //   // console.log('users controller', nickname, email, password);
-
-  //   return this.usersService.createUser({ nickname, email, password });
-  // }
 }
