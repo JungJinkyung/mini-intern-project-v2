@@ -2,6 +2,7 @@
 
 import Button from "@/app/components/common/Button";
 import RegistrationInput from "@/app/components/inputs/registration-input";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import validateRegistrationInputs from "../utils/validate-registration-inputs";
 import styles from "./page.module.css";
@@ -18,12 +19,20 @@ export default () => {
     nickname: ""
   });
 
+  const router = useRouter();
+
   const handleRegistrationInput = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
 
     console.log(email, password, confirmedPassword, nickname);
+
+    const body = {
+      nickname,
+      email,
+      password
+    };
 
     if (
       validateRegistrationInputs({
@@ -35,7 +44,17 @@ export default () => {
       })
     ) {
       try {
-        /* 로그인 api 처리 로직... */
+        fetch("http://localhost:8080/auth/register/email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(body)
+        }).then((res: any) => {
+          alert("회원가입에 성공했습니다. 🎉");
+
+          router.push("/login");
+        });
       } catch (error) {
         alert("회원가입에 실패했습니다!");
       }

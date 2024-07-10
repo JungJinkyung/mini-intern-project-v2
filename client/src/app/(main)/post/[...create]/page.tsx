@@ -1,23 +1,63 @@
 "use client";
 
+import { getEmail } from "@/app/(auth)/utils/save-email";
 import Button from "@/app/components/common/Button";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 
 export default () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [hashtag, setHashtag] = useState("");
+  const [nickname, setNickname] = useState("");
+
+  const router = useRouter();
+  const category = usePathname().split("/")[3];
+
+  useEffect(() => {
+    const email = getEmail();
+
+    try {
+      fetch(`http://localhost:8080/users/${email}`)
+        .then((res) => res.json())
+        .then((res: any) => {
+          setNickname(res.nickname);
+        });
+    } catch (error) {
+      alert("nickname 가져오기 실패");
+    }
+  }, []);
 
   const handleCreatePost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(title, content, hashtag);
+    const body = {
+      category,
+      nickname,
+      title,
+      content,
+      hashtag
+    };
+
+    console.log(body);
 
     try {
-      /* 로그인 api 처리 로직... */
+      fetch("http://localhost:8080/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      })
+        .then((res) => res.json())
+        .then((res: any) => {
+          res.message && alert(res.message);
+
+          router.push(`/home/${category}`);
+        });
     } catch (error) {
-      alert("회원가입에 실패했습니다!");
+      alert("게시글 작성에 실패했습니다.");
     }
   };
 

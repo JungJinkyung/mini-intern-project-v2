@@ -1,30 +1,43 @@
+"use client";
+
 import Button from "@/app/components/common/Button";
 import PostList from "@/app/components/lists/post-list";
 import BoardSelectorTab from "@/app/components/tabs/board-selector-tab";
-import Link from "next/link";
+import { useAuth } from "@/contexts";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default () => {
-  const posts: Post[] = [
-    {
-      id: "1",
-      category: "string",
-      created_time: "string",
-      title: "string",
-      text: "string",
-      file: "string",
-      hashtag: ["string"],
-      comment: [
-        {
-          nickname: "string",
-          comment_text: "string",
-          created_time: "string"
+  const [posts, setPosts] = useState([]);
+
+  const category = usePathname().split("/")[2];
+  const router = useRouter();
+
+  const { isLoggedIn } = useAuth();
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/posts/${category}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
         }
-      ],
-      view_count: "string",
-      user_id: "string",
-      nickname: "string"
+
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+
+        setPosts(data);
+      });
+  }, []);
+
+  const handleCreatePostButton = () => {
+    if (isLoggedIn) {
+      router.push(`/post/create/${category}`);
+    } else {
+      alert("✅ 로그인이 필요한 서비스 입니다!");
     }
-  ];
+  };
 
   return (
     <div className="min-h-[1069px] flex flex-col justify-center items-center">
@@ -39,17 +52,14 @@ export default () => {
         <div>
           <div className="h-[600px]">
             <PostList posts={posts} className="mt-10" />
-            <Link
-              href={`/post/create`}
-              /* onClick={handlePostCreateButtonClick} */
-            >
-              <Button
-                color="black"
-                size="base"
-                className="relative top-6 left-[1020px]">
-                글쓰기
-              </Button>
-            </Link>
+
+            <Button
+              color="black"
+              size="base"
+              className="relative top-6 left-[1020px]"
+              onClick={handleCreatePostButton}>
+              글쓰기
+            </Button>
           </div>
         </div>
       </div>

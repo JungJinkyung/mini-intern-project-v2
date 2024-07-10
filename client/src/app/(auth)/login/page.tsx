@@ -2,8 +2,12 @@
 
 import Button from "@/app/components/common/Button";
 import LoginInput from "@/app/components/inputs/login-input";
+import { useAuth } from "@/contexts";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { saveEmail } from "../utils/save-email";
+import { saveToken } from "../utils/token ";
 import validateLoginInputs from "../utils/validate-login-inputs";
 
 export default () => {
@@ -14,16 +18,41 @@ export default () => {
     password: ""
   });
 
+  const router = useRouter();
+
+  const { setIsLoggedIn } = useAuth();
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(email, password);
+    const body = {
+      email,
+      password
+    };
 
     if (validateLoginInputs({ setErrors, email, password })) {
       try {
-        /* 로그인 api 처리 로직... */
+        fetch("http://localhost:8080/auth/login/email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(body)
+        })
+          .then((res) => res.json())
+          .then((res: any) => {
+            res.message && alert(res.message);
+
+            saveToken(res);
+
+            saveEmail(email);
+            setIsLoggedIn(true);
+
+            alert("로그인에 성공했습니다. 🎉");
+            router.push("/home/free");
+          });
       } catch (error) {
-        alert("회원가입에 실패했습니다!");
+        alert(`로그인에 실패했습니다! ${error}`);
       }
     }
   };

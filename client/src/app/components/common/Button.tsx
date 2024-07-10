@@ -22,6 +22,7 @@ export default ({
   active = false,
   children,
   className,
+  onClick,
   ...props
 }: PropsWithChildren<props>) => {
   const sizes = {
@@ -44,7 +45,8 @@ export default ({
   return (
     <button
       className={`${sizes[size]} ${colors[color]} ${className}`}
-      {...props}>
+      {...props}
+      onClick={onClick}>
       {children}
     </button>
   );

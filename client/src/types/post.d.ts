@@ -6,10 +6,10 @@ declare global {
     category: string;
     created_time: string;
     title: string;
-    text: string;
+    content: string;
     file: string;
-    hashtag: string[];
-    comment?: any[];
+    hashtag: string;
+    comments?: any[];
     view_count: string;
     user_id: string;
     nickname: string;

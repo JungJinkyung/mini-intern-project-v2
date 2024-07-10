@@ -1,7 +1,9 @@
+import { processDate } from "@/app/(main)/post/utils/process-date";
 import Link from "next/link";
 
 type props = {
   [key: string]: string;
+  created_time: string;
 };
 
 export default ({
@@ -12,9 +14,6 @@ export default ({
   created_time,
   view_count
 }: props) => {
-  // let date = formatIsoDate(created_time)
-  const date = "2024.07.02";
-
   let num = Number(no) + 1;
 
   return (
@@ -23,7 +22,7 @@ export default ({
         <div className="w-[62px] text-center">{num}</div>
         <div className="w-[602px] text-center">{title}</div>
         <div className="w-[160px] text-center">{nickname}</div>
-        <div className="w-[160px] text-center">{date}</div>
+        <div className="w-[160px] text-center">{processDate(created_time)}</div>
         <div className="w-[160px] text-center">{view_count}</div>
       </div>
     </Link>
