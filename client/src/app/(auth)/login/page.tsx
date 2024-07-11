@@ -32,7 +32,7 @@ export default () => {
 
     if (validateLoginInputs({ setErrors, email, password })) {
       try {
-        fetch("http://localhost:8080/auth/login/email", {
+        fetch(`${process.env.NEXT_PUBLIC_API_HOST}/auth/login/email`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -43,7 +43,7 @@ export default () => {
           .then((res: any) => {
             res.message && alert(res.message);
 
-            if (res.statusCode !== 201) {
+            if (res.statusCode === 401) {
               throw new Error("로그인에 실패했습니다! 😱");
             }
 
