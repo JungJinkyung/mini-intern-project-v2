@@ -43,6 +43,12 @@ export default () => {
           .then((res: any) => {
             res.message && alert(res.message);
 
+            console.log("로그인 에러 확인", res);
+
+            if (res.statusCode !== 201) {
+              throw new Error("로그인에 실패했습니다!");
+            }
+
             saveToken(res);
 
             saveEmail(email);
@@ -50,9 +56,12 @@ export default () => {
 
             alert("로그인에 성공했습니다. 🎉");
             router.push("/home/free");
-          });
+          })
+          .catch((error) => console.log(error));
       } catch (error) {
+        // res를 받은거면 가장 하단 catch로 가지 않는다! 하려면 then 뒤로 catch 붙여서 해야한다.
         alert(`로그인에 실패했습니다! ${error}`);
+        return;
       }
     }
   };
@@ -81,7 +90,10 @@ export default () => {
             <p className="text-red-500 text-sm">{errors.password}</p>
           )}
         </div>
-        <Button color="black" size="xl" className="my-3">
+        <Button
+          color="black"
+          size="xl"
+          className="my-3">
           로그인
         </Button>
       </form>
