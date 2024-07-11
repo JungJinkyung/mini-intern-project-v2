@@ -1,7 +1,9 @@
 export const processHashtag = (hashtag: string): string[] => {
-  const parts = hashtag.split('#');
+  // '#'로 분할하고 각 부분을 trim()한 다음 빈 문자열이 아닌 부분만 필터링
+  const parts = hashtag
+    .split("#")
+    .map((part) => part.trim())
+    .filter((part) => part !== "");
 
-  const trimmedParts = parts.map((part) => part.trim());
-
-  return trimmedParts;
+  return parts;
 };
