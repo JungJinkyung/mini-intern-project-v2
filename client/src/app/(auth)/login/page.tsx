@@ -59,7 +59,6 @@ export default () => {
       } catch (error) {
         // res를 받은거면 가장 하단 catch로 가지 않는다! 하려면 then 뒤로 catch 붙여서 해야한다.
         alert(`로그인에 실패했습니다! ${error}`);
-        return;
       }
     }
   };
