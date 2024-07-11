@@ -1,5 +1,6 @@
 "use client";
 
+import { clearEmail } from "@/app/(auth)/utils/save-email";
 import { clearToken, getToken } from "@/app/(auth)/utils/token ";
 import { useAuth } from "@/contexts";
 import Link from "next/link";
@@ -21,6 +22,7 @@ export default () => {
 
   const handleLogout = () => {
     clearToken();
+    clearEmail();
     setIsLoggedIn(false);
 
     alert("로그아웃이 완료되었습니다.");
