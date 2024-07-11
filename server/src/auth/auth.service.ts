@@ -62,6 +62,7 @@ export class AuthService {
     return {
       accessToken: this.signToken(user, false),
       refreshToken: this.signToken(user, true),
+      message: '로그인에 성공했습니다.',
     };
   }
 

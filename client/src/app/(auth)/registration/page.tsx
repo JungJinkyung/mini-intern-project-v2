@@ -42,7 +42,7 @@ export default () => {
       })
     ) {
       try {
-        fetch("http://localhost:8080/auth/register/email", {
+        fetch(`${process.env.NEXT_PUBLIC_API_HOST}/auth/register/email`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -118,7 +118,10 @@ export default () => {
             <h3 className="text-[#808080]">(필수)</h3>
           </div>
           <div className="w-[100%] flex justify-center">
-            <Button color="black" size="md" className="mt-12">
+            <Button
+              color="black"
+              size="md"
+              className="mt-12">
               회원가입
             </Button>
           </div>

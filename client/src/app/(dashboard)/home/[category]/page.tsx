@@ -16,7 +16,7 @@ export default () => {
   const { isLoggedIn } = useAuth();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/posts/${category}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_HOST}/posts/${category}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Network response was not ok");
@@ -49,7 +49,10 @@ export default () => {
         <BoardSelectorTab />
         <div>
           <div className="h-[600px]">
-            <PostList posts={posts} className="mt-10" />
+            <PostList
+              posts={posts}
+              className="mt-10"
+            />
 
             <Button
               color="black"

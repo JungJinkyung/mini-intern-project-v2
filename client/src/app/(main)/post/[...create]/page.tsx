@@ -19,7 +19,7 @@ export default () => {
     const email = getEmail();
 
     try {
-      fetch(`http://localhost:8080/users/${email}`)
+      fetch(`${process.env.NEXT_PUBLIC_API_HOST}/users/${email}`)
         .then((res) => res.json())
         .then((res: any) => {
           setNickname(res.nickname);
@@ -41,7 +41,7 @@ export default () => {
     };
 
     try {
-      fetch("http://localhost:8080/posts", {
+      fetch(`${process.env.NEXT_PUBLIC_API_HOST}/posts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -108,7 +108,10 @@ export default () => {
             onChange={(e) => setHashtag(e.target.value)}
           />
         </div>
-        <Button color="black" size="lg" className="relative m-auto my-10">
+        <Button
+          color="black"
+          size="lg"
+          className="relative m-auto my-10">
           게시글 작성
         </Button>
       </form>

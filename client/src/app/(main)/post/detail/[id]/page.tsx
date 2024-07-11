@@ -25,7 +25,7 @@ export default () => {
     const email = getEmail();
 
     try {
-      fetch(`http://localhost:8080/users/${email}`)
+      fetch(`${process.env.NEXT_PUBLIC_API_HOST}/users/${email}`)
         .then((res) => res.json())
         .then((res: any) => {
           setNickname(res.nickname);
@@ -36,7 +36,7 @@ export default () => {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/posts/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_HOST}/posts/${id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Network response was not ok");
