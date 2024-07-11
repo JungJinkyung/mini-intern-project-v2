@@ -43,8 +43,6 @@ export default () => {
           .then((res: any) => {
             res.message && alert(res.message);
 
-            console.log("로그인 에러 확인", res);
-
             if (res.statusCode !== 201) {
               throw new Error("로그인에 실패했습니다!");
             }
