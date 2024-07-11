@@ -44,7 +44,7 @@ export default () => {
             res.message && alert(res.message);
 
             if (res.statusCode !== 201) {
-              throw new Error("로그인에 실패했습니다!");
+              throw new Error("로그인에 실패했습니다! 😱");
             }
 
             saveToken(res);
@@ -55,7 +55,7 @@ export default () => {
             alert("로그인에 성공했습니다. 🎉");
             router.push("/home/free");
           })
-          .catch((error) => console.log(error));
+          .catch((error) => console.log(error)); // ⭐️ 이렇게 해야 에러가 잡힌다.
       } catch (error) {
         // res를 받은거면 가장 하단 catch로 가지 않는다! 하려면 then 뒤로 catch 붙여서 해야한다.
         alert(`로그인에 실패했습니다! ${error}`);
