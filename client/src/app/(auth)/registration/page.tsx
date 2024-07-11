@@ -26,8 +26,6 @@ export default () => {
   ) => {
     e.preventDefault();
 
-    console.log(email, password, confirmedPassword, nickname);
-
     const body = {
       nickname,
       email,
