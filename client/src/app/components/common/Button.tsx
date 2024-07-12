@@ -1,9 +1,10 @@
-import { PropsWithChildren } from "react";
+import { MouseEventHandler, PropsWithChildren } from "react";
 
 interface props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: "xs" | "sm" | "base" | "md" | "lg" | "xl";
   color: "black" | "white" | "orange" | "grey";
   active?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 // xs: 'w-[58px] h-10', text-sm, weight-500 (삭제 모달)
@@ -45,8 +46,8 @@ export default ({
   return (
     <button
       className={`${sizes[size]} ${colors[color]} ${className}`}
-      {...props}
-      onClick={onClick}>
+      onClick={onClick}
+      {...props}>
       {children}
     </button>
   );

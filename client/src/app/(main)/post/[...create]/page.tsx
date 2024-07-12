@@ -29,7 +29,7 @@ export default () => {
     }
   }, []);
 
-  const handleCreatePost = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCreatePost = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     const body = {
@@ -64,9 +64,7 @@ export default () => {
       <h1 className="text-gray-800 text-[32px] font-bold mt-16 mb-10">
         게시글 작성
       </h1>
-      <form
-        className="flex flex-col gap-y-4 text-xl"
-        onSubmit={handleCreatePost}>
+      <div className="flex flex-col gap-y-4 text-xl">
         <div className="flex items-center gap-x-2">
           <h2 className={`${styles.title}`}>제목</h2>
           <input
@@ -111,10 +109,11 @@ export default () => {
         <Button
           color="black"
           size="lg"
-          className="relative m-auto my-10">
+          className="relative m-auto my-10"
+          onClick={handleCreatePost}>
           게시글 작성
         </Button>
-      </form>
+      </div>
     </div>
   );
 };

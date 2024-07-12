@@ -22,7 +22,7 @@ export default () => {
   const router = useRouter();
 
   const handleRegistrationInput = async (
-    e: React.FormEvent<HTMLFormElement>
+    e: React.MouseEvent<HTMLButtonElement>
   ) => {
     e.preventDefault();
 
@@ -63,9 +63,7 @@ export default () => {
     <div>
       <div className="h-[1111px] flex flex-col justify-center items-center">
         <h1 className="text-[#040404] text-[32px] font-bold mb-16">회원가입</h1>
-        <form
-          className="flex flex-col gap-y-6"
-          onSubmit={handleRegistrationInput}>
+        <div className="flex flex-col gap-y-6">
           <div>
             <h2 className="text-base font-bold mb-2">이메일</h2>
             <RegistrationInput
@@ -121,11 +119,12 @@ export default () => {
             <Button
               color="black"
               size="md"
-              className="mt-12">
+              className="mt-12"
+              onClick={handleRegistrationInput}>
               회원가입
             </Button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

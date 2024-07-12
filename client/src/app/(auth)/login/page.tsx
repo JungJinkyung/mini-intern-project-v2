@@ -22,7 +22,7 @@ export default () => {
 
   const { setIsLoggedIn } = useAuth();
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     const body = {
@@ -66,34 +66,32 @@ export default () => {
   return (
     <div className="my-0 h-[711px] flex flex-col justify-center items-center">
       <h1 className="text-gray-800 text-[32px] font-bold mb-4">로그인</h1>
-      <form onSubmit={handleLogin}>
-        <div className="flex flex-col gap-y-2">
-          <LoginInput
-            type="email"
-            state={email}
-            setState={setEmail}
-            placeholder="이메일 주소"
-          />
-          {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email}</p>
-          )}
-          <LoginInput
-            type="password"
-            state={password}
-            setState={setPassword}
-            placeholder="비밀번호 입력"
-          />
-          {errors.password && (
-            <p className="text-red-500 text-sm">{errors.password}</p>
-          )}
-        </div>
-        <Button
-          color="black"
-          size="xl"
-          className="my-3">
-          로그인
-        </Button>
-      </form>
+      <div className="flex flex-col gap-y-2">
+        <LoginInput
+          type="email"
+          state={email}
+          setState={setEmail}
+          placeholder="이메일 주소"
+        />
+        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+        <LoginInput
+          type="password"
+          state={password}
+          setState={setPassword}
+          placeholder="비밀번호 입력"
+        />
+        {errors.password && (
+          <p className="text-red-500 text-sm">{errors.password}</p>
+        )}
+      </div>
+      <Button
+        color="black"
+        size="xl"
+        className="my-3"
+        onClick={handleLogin}>
+        로그인
+      </Button>
+
       <div>
         <ul className="flex text-sm">
           <li className="text-gray border-r-[1.2px] border-gray px-8 my-1 cursor-not-allowed">
