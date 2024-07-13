@@ -1,6 +1,6 @@
 {
   "tabWidth": 2,
-  "singleQuote": false,
+  "singleQuote": true,
   "trailingComma": "none",
   "endOfLine": "auto",
   "bracketSameLine": true,
@@ -9,5 +9,6 @@
   "useTabs": false,
   "htmlWhitespaceSensitivity": "ignore",
   "embeddedLanguageFormatting": "auto",
-  "singleAttributePerLine": true
+  "singleAttributePerLine": true,
+  "jsxBracketSameLine": false
 }

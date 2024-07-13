@@ -1,4 +1,4 @@
-import { Dispatch } from "react";
+import { Dispatch } from 'react';
 
 export default ({
   setErrors,
@@ -12,17 +12,17 @@ export default ({
   let isValid = true;
 
   let newErrors = {
-    email: "",
-    password: ""
+    email: '',
+    password: ''
   };
 
-  if (email === "") {
-    newErrors.email = "이메일을 입력해주세요.";
+  if (email === '') {
+    newErrors.email = '이메일을 입력해주세요.';
     isValid = false;
   }
 
-  if (password === "") {
-    newErrors.password = "비밀번호를 입력해주세요.";
+  if (password === '') {
+    newErrors.password = '비밀번호를 입력해주세요.';
     isValid = false;
   }
 

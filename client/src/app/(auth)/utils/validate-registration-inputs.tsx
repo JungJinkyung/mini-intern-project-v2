@@ -1,4 +1,4 @@
-import { Dispatch } from "react";
+import { Dispatch } from 'react';
 
 export default ({
   setErrors,
@@ -16,28 +16,28 @@ export default ({
   let isValid = true;
 
   let newErrors = {
-    email: "",
-    password: "",
-    confirmedPassword: "",
-    nickname: ""
+    email: '',
+    password: '',
+    confirmedPassword: '',
+    nickname: ''
   };
 
-  if (email === "") {
-    newErrors.email = "이메일을 입력해주세요.";
+  if (email === '') {
+    newErrors.email = '이메일을 입력해주세요.';
     isValid = false;
   }
 
-  if (password === "") {
-    newErrors.password = "비밀번호를 입력해주세요.";
+  if (password === '') {
+    newErrors.password = '비밀번호를 입력해주세요.';
     isValid = false;
   }
 
   if (password !== confirmedPassword) {
-    newErrors.confirmedPassword = "비밀번호가 일치하지 않습니다.";
+    newErrors.confirmedPassword = '비밀번호가 일치하지 않습니다.';
   }
 
-  if (nickname === "") {
-    newErrors.nickname = "닉네임을 입려해주세요.";
+  if (nickname === '') {
+    newErrors.nickname = '닉네임을 입려해주세요.';
     isValid = false;
   }
 
