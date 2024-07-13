@@ -8,6 +8,8 @@ import validateRegistrationInputs from '../utils/validate-registration-inputs';
 import styles from './page.module.css';
 
 export default () => {
+  const router = useRouter();
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmedPassword, setConfirmedPassword] = useState<string>('');
@@ -19,18 +21,36 @@ export default () => {
     nickname: ''
   });
 
-  const router = useRouter();
-
-  const handleRegistrationInput = async (
-    e: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    e.preventDefault();
-
+  const fetchRegistration = () => {
     const body = {
       nickname,
       email,
       password
     };
+
+    fetch(`${process.env.NEXT_PUBLIC_API_HOST}/auth/register/email`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    }).then((res: any) => {
+
+      if(res.status === 400) {
+        throw new Error('회원가입에 실패했습니다. 이미 사용중인 이메일 입니다.')
+      }
+      alert('회원가입에 성공했습니다. 🎉');
+
+      router.push('/login');
+    }).catch((error) => {
+      alert(error)
+    })
+  }
+
+  const handleRegistrationInput = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    e.preventDefault();
 
     if (
       validateRegistrationInputs({
@@ -41,23 +61,7 @@ export default () => {
         confirmedPassword
       })
     ) {
-        fetch(`${process.env.NEXT_PUBLIC_API_HOST}/auth/register/email`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(body)
-        }).then((res: any) => {
-
-          if(res.status === 400) {
-            throw new Error('회원가입에 실패했습니다. 이미 사용중인 이메일 입니다.')
-          }
-          alert('회원가입에 성공했습니다. 🎉');
-
-          router.push('/login');
-        }).catch((error) => {
-          alert(error)
-        })
+        fetchRegistration()
     }
   };
 
