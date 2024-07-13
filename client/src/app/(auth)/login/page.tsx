@@ -22,45 +22,49 @@ export default () => {
     password: ''
   });
 
-  const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
+  const fetchLogin = () => {
     const body = {
       email,
       password
     };
 
-    if (validateLoginInputs({ setErrors, email, password })) {
-      fetch(`${process.env.NEXT_PUBLIC_API_HOST}/auth/login/email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
+    fetch(`${process.env.NEXT_PUBLIC_API_HOST}/auth/login/email`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+      .then((res) => res.json())
+      .then((res: any) => {
+        res.message && alert(res.message);
+
+        if (res.statusCode === 401) {
+          throw new Error('로그인에 실패했습니다! 😱');
+        }
+
+        saveToken(res);
+        saveEmail(email);
+
+        setIsLoggedIn(true);
+
+        alert('로그인에 성공했습니다. 🎉');
+        router.push('/home/free');
       })
-        .then((res) => res.json())
-        .then((res: any) => {
-          res.message && alert(res.message);
+      .catch((error) => console.log(error)); // ⭐️ 이렇게 해야 에러가 잡힌다.
+  }
 
-          if (res.statusCode === 401) {
-            throw new Error('로그인에 실패했습니다! 😱');
-          }
+  const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
 
-          saveToken(res);
-          saveEmail(email);
-
-          setIsLoggedIn(true);
-
-          alert('로그인에 성공했습니다. 🎉');
-          router.push('/home/free');
-        })
-        .catch((error) => console.log(error)); // ⭐️ 이렇게 해야 에러가 잡힌다.
+    if (validateLoginInputs({ setErrors, email, password })) {
+      fetchLogin()
     }
   };
 
   return (
     <div 
-    className={styles.container}
+      className={styles.container}
     >
       <h1 
         className={styles.title}>로그인
@@ -94,7 +98,9 @@ export default () => {
       </Button>
 
       <div>
-        <ul className='flex text-sm'>
+        <ul 
+          className='flex text-sm'
+        >
           <li 
             className={styles['find-item']}>아이디 찾기
           </li>

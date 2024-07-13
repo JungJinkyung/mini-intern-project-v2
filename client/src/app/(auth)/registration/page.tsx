@@ -41,7 +41,6 @@ export default () => {
         confirmedPassword
       })
     ) {
-      try {
         fetch(`${process.env.NEXT_PUBLIC_API_HOST}/auth/register/email`, {
           method: 'POST',
           headers: {
@@ -49,13 +48,16 @@ export default () => {
           },
           body: JSON.stringify(body)
         }).then((res: any) => {
+
+          if(res.status === 400) {
+            throw new Error('회원가입에 실패했습니다. 이미 사용중인 이메일 입니다.')
+          }
           alert('회원가입에 성공했습니다. 🎉');
 
           router.push('/login');
-        });
-      } catch (error) {
-        alert('회원가입에 실패했습니다!');
-      }
+        }).catch((error) => {
+          alert(error)
+        })
     }
   };
 
