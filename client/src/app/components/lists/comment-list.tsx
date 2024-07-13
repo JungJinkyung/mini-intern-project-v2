@@ -9,8 +9,12 @@ export default ({ comments }: props) => {
   return (
     <>
       {comments?.map((comment, idx) => (
-        <Fragment key={idx}>
-          <Comment comment={comment} />
+        <Fragment 
+          key={idx}
+        >
+          <Comment 
+            comment={comment} 
+          />
         </Fragment>
       ))}
     </>

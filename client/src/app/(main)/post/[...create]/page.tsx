@@ -1,37 +1,42 @@
 'use client';
 
-import { getEmail } from '@/app/(auth)/utils/save-email';
 import Button from '@/app/components/common/Button';
+import { getEmail } from '@/utils/save-email';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 
 export default () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [hashtag, setHashtag] = useState('');
-  const [nickname, setNickname] = useState('');
-
   const router = useRouter();
   const category = usePathname().split('/')[3];
 
+  const [title, setTitle] = useState<string>('');
+  const [content, setContent] = useState<string>('');
+  const [hashtag, setHashtag] = useState<string>('');
+  const [nickname, setNickname] = useState<string>('');
+
+
   useEffect(() => {
+    getMeData()
+  }, []);
+  
+  const getMeData = () => {
     const email = getEmail();
 
-    try {
-      fetch(`${process.env.NEXT_PUBLIC_API_HOST}/users/${email}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_HOST}/users/${email}`)
         .then((res) => res.json())
         .then((res: any) => {
           setNickname(res.nickname);
         });
-    } catch (error) {
-      alert('nickname 가져오기 실패');
-    }
-  }, []);
+  }
 
   const handleCreatePost = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
+    createPost()
+  };
+
+  const createPost = () => {
     const body = {
       category,
       nickname,
@@ -40,38 +45,44 @@ export default () => {
       hashtag
     };
 
-    try {
-      fetch(`${process.env.NEXT_PUBLIC_API_HOST}/posts`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-      })
-        .then((res) => res.json())
-        .then((res: any) => {
-          res.message && alert(res.message);
+    fetch(`${process.env.NEXT_PUBLIC_API_HOST}/posts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+      .then((res) => res.json())
+      .then((res: any) => {
+        res.message && alert(res.message);
 
-          router.push(`/home/${category}`);
-        });
-    } catch (error) {
-      alert('게시글 작성에 실패했습니다.');
-    }
-  };
+        router.push(`/home/${category}`);
+      });
+  }
 
   return (
-    <div className='h-[921px] flex flex-col justify-center items-center'>
-      <h1 className='text-gray-800 text-[32px] font-bold mt-16 mb-10'>
+    <div 
+      className='h-[921px] flex flex-col justify-center items-center'
+    >
+      <h1 
+        className='text-gray-800 text-[32px] font-bold mt-16 mb-10'
+      >
         게시글 작성
       </h1>
-      <div className='flex flex-col gap-y-4 text-xl'>
-        <div className='flex items-center gap-x-2'>
-          <h2 className={`${styles.title}`}>제목</h2>
+      <div 
+        className='flex flex-col gap-y-4 text-xl'
+      >
+        <div 
+          className='flex items-center gap-x-2'
+        >
+          <h2 
+            className={`${styles.title}`}>제목
+          </h2>
           <input
             className={`${styles['title-input']}`}
-            type='text'
+            type={'text'}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder='제목을 입력해주세요.'
+            placeholder={'제목을 입력해주세요.'}
           />
         </div>
         <div className='flex gap-x-2'>
@@ -82,8 +93,12 @@ export default () => {
             placeholder='내용을 입력해주세요.'
           />
         </div>
-        <div className='flex items-center gap-x-2'>
-          <h2 className={`${styles.title}`}>파일 첨부</h2>
+        <div 
+          className='flex items-center gap-x-2'
+        >
+          <h2 
+            className={`${styles.title}`}>파일 첨부
+          </h2>
           <input
             /* ref={fileInputRef} */
             className='hidden'
@@ -98,18 +113,22 @@ export default () => {
             아직 사용 불가
           </div>
         </div>
-        <div className='flex items-center gap-x-2'>
-          <h2 className='text-xl font-bold w-[140px]'>해시태그</h2>
+        <div 
+          className='flex items-center gap-x-2'
+        >
+          <h2 
+            className='text-xl font-bold w-[140px]'>해시태그
+          </h2>
           <input
             className={`${styles['hashtag']}`}
-            placeholder='# 을 붙여주세요!  ex) #해시 #태그 #게시글 #작성'
+            placeholder={'# 을 붙여주세요!  ex) #해시 #태그 #게시글 #작성'}
             onChange={(e) => setHashtag(e.target.value)}
           />
         </div>
         <Button
-          color='black'
-          size='lg'
-          className='relative m-auto my-10'
+          color={'black'}
+          size={'lg'}
+          className={'relative m-auto my-10'}
           onClick={handleCreatePost}>
           게시글 작성
         </Button>

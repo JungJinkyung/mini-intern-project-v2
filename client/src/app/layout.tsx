@@ -1,23 +1,29 @@
-"use client";
+'use client';
 
-import "@/app/styles/globals.css";
-import { Inter } from "next/font/google";
-import { ReactNode } from "react";
+import { Inter } from 'next/font/google';
+import { ReactNode } from 'react';
+import './styles/globals.css';
 
-import { AuthProvider } from "@/contexts";
-import Footer from "./components/common/Footer";
-import Header from "./components/common/Header";
+import { AuthProvider } from '@/contexts';
+import Footer from './components/common/Footer';
+import Header from './components/common/Header';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export default function App({ children }: { children: ReactNode }) {
   return (
-    <html lang="ko">
+    <html lang='ko'>
       <AuthProvider>
-        <body className={inter.className}>
-          <main className="flex flex-col">
+        <body 
+          className={inter.className}
+        >
+          <main 
+            className='flex flex-col'
+          >
             <Header />
-            <div className="min-h-[650px]">{children}</div>
+            <div 
+              className='min-h-[650px]'>{children}
+            </div>
             <Footer />
           </main>
         </body>

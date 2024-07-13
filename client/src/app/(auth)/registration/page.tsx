@@ -2,9 +2,9 @@
 
 import Button from '@/app/components/common/Button';
 import RegistrationInput from '@/app/components/inputs/registration-input';
+import validateRegistrationInputs from '@/utils/validate-registration-inputs';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import validateRegistrationInputs from '../utils/validate-registration-inputs';
 import styles from './page.module.css';
 
 export default () => {
@@ -68,10 +68,10 @@ export default () => {
   return (
     <div>
       <div 
-        className={`${styles.container}`}
+        className={styles.container}
       >
         <h1 
-          className={`${styles.title}`}>회원가입
+          className={styles.title}>회원가입
         </h1>
         <div 
           className='flex flex-col gap-y-6'
@@ -88,7 +88,7 @@ export default () => {
             />
             {errors.email && (
               <p 
-                className={`${styles.error}`}>{errors.email}
+                className={styles.error}>{errors.email}
               </p>
             )}
           </div>
@@ -100,8 +100,8 @@ export default () => {
               className='flex flex-col gap-y-2'
             >
               <RegistrationInput
-                type='password'
-                placeholder='8자 이상, 영문자, 숫자, 특수기호중 2가지 조합'
+                type={'password'}
+                placeholder={'8자 이상, 영문자, 숫자, 특수기호중 2가지 조합'}
                 state={password}
                 setState={setPassword}
               />
@@ -111,8 +111,8 @@ export default () => {
                 </p>
               )}
               <RegistrationInput
-                type='password'
-                placeholder='비밀번호를 다시 입력해주세요'
+                type={'password'}
+                placeholder={'비밀번호를 다시 입력해주세요'}
                 state={confirmedPassword}
                 setState={setConfirmedPassword}
               />
@@ -128,8 +128,8 @@ export default () => {
               className='text-base font-bold mb-2'>닉네임
             </h2>
             <RegistrationInput
-              type='text'
-              placeholder='닉네임을 입력해주세요.'
+              type={'text'}
+              placeholder={'닉네임을 입력해주세요.'}
               state={nickname}
               setState={setNickname}
             />
@@ -151,9 +151,9 @@ export default () => {
             className='w-[100%] flex justify-center'
           >
             <Button
-              color='black'
-              size='md'
-              className='mt-12'
+              color={'black'}
+              size={'md'}
+              className={'mt-12'}
               onClick={handleRegistrationInput}>
               회원가입
             </Button>

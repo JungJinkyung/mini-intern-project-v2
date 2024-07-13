@@ -8,18 +8,18 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default () => {
-  const [posts, setPosts] = useState([]);
-
-  const category = usePathname().split('/')[2];
   const router = useRouter();
-
+  const category = usePathname().split('/')[2];
+  
   const { isLoggedIn } = useAuth();
 
+  const [posts, setPosts] = useState([]);
+
   useEffect(() => {
-    a();
+    getPosts();
   }, []);
 
-  const a = () => {
+  const getPosts = () => {
     fetch(`${process.env.NEXT_PUBLIC_API_HOST}/posts/${category}`)
       .then((res) => {
         if (!res.ok) {
@@ -42,26 +42,33 @@ export default () => {
   };
 
   return (
-    <div className='min-h-[1069px] flex flex-col justify-center items-center'>
+    <div 
+      className='min-h-[1069px] flex flex-col justify-center items-center'
+    >
       <div>
-        <h3 className='text-red-MAIN text-[20px] font-bold text-center'>
-          board
+        <h3 
+          className='text-red-MAIN text-[20px] font-bold text-center'
+        >board
         </h3>
-        <h1 className='text-[32px] font-bold my-3'>자유 게시판</h1>
+        <h1 
+          className='text-[32px] font-bold my-3'
+        >자유 게시판</h1>
       </div>
       <div>
         <BoardSelectorTab />
         <div>
-          <div className='h-[600px]'>
+          <div 
+            className='h-[600px]'
+          >
             <PostList
               posts={posts}
-              className='mt-10'
+              className={'mt-10'}
             />
 
             <Button
-              color='black'
-              size='base'
-              className='relative top-6 left-[1020px]'
+              color={'black'}
+              size={'base'}
+              className={'relative top-6 left-[1020px]'}
               onClick={handleCreatePostButton}>
               글쓰기
             </Button>

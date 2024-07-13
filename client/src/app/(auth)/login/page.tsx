@@ -3,12 +3,12 @@
 import Button from '@/app/components/common/Button';
 import LoginInput from '@/app/components/inputs/login-input';
 import { useAuth } from '@/contexts';
+import { saveEmail } from '@/utils/save-email';
+import { saveToken } from '@/utils/token ';
+import validateLoginInputs from '@/utils/validate-login-inputs';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { MouseEvent, useState } from 'react';
-import { saveEmail } from '../utils/save-email';
-import { saveToken } from '../utils/token ';
-import validateLoginInputs from '../utils/validate-login-inputs';
 import styles from './page.module.css';
 
 export default () => {

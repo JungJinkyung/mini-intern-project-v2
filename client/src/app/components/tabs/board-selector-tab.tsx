@@ -10,7 +10,9 @@ export default () => {
   const category = path?.split("/")[2];
 
   return (
-    <nav className="flex gap-x-3 justify-center mt-14 mb-8">
+    <nav 
+      className="flex gap-x-3 justify-center mt-14 mb-8"
+    >
       <Link href="/home/free">
         <Button color={category === "free" ? "orange" : "grey"} size="sm">
           자유 게시판
