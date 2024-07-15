@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/app/components/common/Button';
+import Button from '@/app/components/buttons/default-button';
 import RegistrationInput from '@/app/components/inputs/registration-input';
 import validateRegistrationInputs from '@/utils/validate-registration-inputs';
 import { useRouter } from 'next/navigation';
@@ -74,14 +74,14 @@ export default () => {
           className={styles.title}>회원가입
         </h1>
         <div 
-          className='flex flex-col gap-y-6'
+          className={'flex flex-col gap-y-6'}
         >
           <div>
             <h2 
-              className='text-base font-bold mb-2'>이메일
+              className={'text-base font-bold mb-2'}>이메일
             </h2>
             <RegistrationInput
-              type='email'
+              type={'email'}
               state={email}
               setState={setEmail}
               placeholder='이메일을 입력해주세요.'
@@ -94,10 +94,10 @@ export default () => {
           </div>
           <div>
             <h2 
-              className='text-base font-bold mb-2'>비밀번호
+              className={'text-base font-bold mb-2'}>비밀번호
             </h2>
             <div 
-              className='flex flex-col gap-y-2'
+              className={'flex flex-col gap-y-2'}
             >
               <RegistrationInput
                 type={'password'}
@@ -125,7 +125,7 @@ export default () => {
           </div>
           <div>
             <h2 
-              className='text-base font-bold mb-2'>닉네임
+              className={'text-base font-bold mb-2'}>닉네임
             </h2>
             <RegistrationInput
               type={'text'}
@@ -140,7 +140,7 @@ export default () => {
             )}
           </div>
           <div 
-            className='w-[384px] h-[75px] bg-[#F9F9F9] flex justify-center items-center text-base gap-x-2 rounded-lg my-2'
+            className={'w-[384px] h-[75px] bg-[#F9F9F9] flex justify-center items-center text-base gap-x-2 rounded-lg my-2'}
           >
             <h3>개인정보 처리방침 / 데이터 활용 동의</h3>
             <h3 
@@ -148,7 +148,7 @@ export default () => {
             </h3>
           </div>
           <div 
-            className='w-[100%] flex justify-center'
+            className={'w-[100%] flex justify-center'}
           >
             <Button
               color={'black'}

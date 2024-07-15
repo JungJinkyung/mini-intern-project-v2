@@ -22,22 +22,22 @@ export default ({
   return (
     <Link href={`/post/detail/${id}`}>
       <div 
-        className="flex items-center w-[1144px] h-[51px] border-b-[1px] border-b-gray-200 hover:bg-gray-50"
+        className={"flex items-center w-[1144px] h-[51px] border-b-[1px] border-b-gray-200 hover:bg-gray-50"}
       >
         <div 
-          className="w-[62px] text-center">{num}
+          className={"w-[62px] text-center"}>{num}
         </div>
         <div 
-          className="w-[602px] text-center">{title}
+          className={"w-[602px] text-center"}>{title}
         </div>
         <div 
-          className="w-[160px] text-center">{nickname}
+          className={"w-[160px] text-center"}>{nickname}
         </div>
         <div 
-          className="w-[160px] text-center">{processDate(created_time)}
+          className={"w-[160px] text-center"}>{processDate(created_time)}
         </div>
         <div 
-          className="w-[160px] text-center">{view_count}
+          className={"w-[160px] text-center"}>{view_count}
         </div>
       </div>
     </Link>

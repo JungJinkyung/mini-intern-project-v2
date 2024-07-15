@@ -96,27 +96,27 @@ export default () => {
     <>
       {post && (
         <div 
-          className='py-[100px] w-[1144px] mx-auto flex flex-col justify-center'
+          className={'py-[100px] w-[1144px] mx-auto flex flex-col justify-center'}
         >
           <header 
-            className='mb-11 flex flex-col'
+            className={'mb-11 flex flex-col'}
           >
             <div 
-              className='flex gap-x-4 mb-[20px]'
+              className={'flex gap-x-4 mb-[20px]'}
             >
               <FaChevronLeft 
-                className='relative top-[15px]' 
+                className={'relative top-[15px]'} 
               />
               <h1 
-                className='text-[32px] font-bold'>{post.title}
+                className={'text-[32px] font-bold'}>{post.title}
               </h1>
             </div>
             <div 
-              className='flex align-center gap-x-2 text-base h-[27px] p-1'
+              className={'flex align-center gap-x-2 text-base h-[27px] p-1'}
             >
               <div>{post?.nickname}</div>
               <div 
-                className='border-x-[1px] border-gray-200 px-2'
+                className={'border-x-[1px] border-gray-200 px-2'}
               >
                 {processDate(post.created_time)}
               </div>
@@ -125,31 +125,31 @@ export default () => {
           </header>
           <main>
             <section 
-              className='mb-4'
+              className={'mb-4'}
             >
               <p 
-                className='min-h-[420px] w-[1140px] text-xl break-all'
+                className={'min-h-[420px] w-[1140px] text-xl break-all'}
               >
                 {post.content}
               </p>
             </section>
             <section 
-              className='flex py-5 gap-x-4 '
+              className={'flex py-5 gap-x-4'}
             >
               <h2 
-                className='text-xl font-normal text-main-orange'
+                className={'text-xl font-normal text-main-orange'}
               >
                 첨부된 파일
               </h2>
               <div 
-                className='font-bold text-xl'>{post?.file}
+                className={'font-bold text-xl'}>{post?.file}
               </div>
             </section>
             <section 
-              className='my-4'
+              className={'my-4'}
             >
               <div 
-                className='flex space-x-3'
+                className={'flex space-x-3'}
               >
                 {processHashtag(post.hashtag)?.map((hashtag: string) => (
                   <Fragment key='1'>
@@ -159,7 +159,7 @@ export default () => {
               </div>
             </section>
             <section 
-              className='flex gap-x-4 py-[32px] mb-2'
+              className={'flex gap-x-4 py-[32px] mb-2'}
             >
               <textarea
                 ref={textareaRef}

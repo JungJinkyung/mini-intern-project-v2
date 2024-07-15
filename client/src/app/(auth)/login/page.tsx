@@ -1,10 +1,10 @@
 'use client';
 
-import Button from '@/app/components/common/Button';
+import Button from '@/app/components/buttons/default-button';
 import LoginInput from '@/app/components/inputs/login-input';
 import { useAuth } from '@/contexts';
 import { saveEmail } from '@/utils/save-email';
-import { saveToken } from '@/utils/token ';
+import { saveToken } from '@/utils/token';
 import validateLoginInputs from '@/utils/validate-login-inputs';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -49,7 +49,7 @@ export default () => {
         setIsLoggedIn(true);
 
         alert('로그인에 성공했습니다. 🎉');
-        router.push('/home/free');
+        router.push('/post/free');
       })
       .catch((error) => console.log(error)); // ⭐️ 이렇게 해야 에러가 잡힌다.
   }
@@ -99,7 +99,7 @@ export default () => {
 
       <div>
         <ul 
-          className='flex text-sm'
+          className={'flex text-sm'}
         >
           <li 
             className={styles['find-item']}>아이디 찾기

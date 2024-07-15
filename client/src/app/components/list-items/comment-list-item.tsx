@@ -9,16 +9,16 @@ export default ({ comment }: props) => {
 
   return (
     <div 
-      className="flex flex-col gap-y-4 justify-center h-[240px] border-t-[1px] border-t-[#E1E1E1]"
+      className={"flex flex-col gap-y-4 justify-center h-[240px] border-t-[1px] border-t-[#E1E1E1]"}
     >
       <div 
-        className="text-xl font-bold">{comment.nickname}
+        className={"text-xl font-bold"}>{comment.nickname}
       </div>
       <p 
-        className="text-xl">{comment.content}
+        className={"text-xl"}>{comment.content}
       </p>
       <div 
-        className="text-gray-400">{processedDate}
+        className={"text-gray-400"}>{processedDate}
       </div>
     </div>
   );
