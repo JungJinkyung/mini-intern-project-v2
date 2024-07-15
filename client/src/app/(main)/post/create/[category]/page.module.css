@@ -1,0 +1,61 @@
+.title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  width: 140px;
+}
+
+.title-input {
+  width: 984px;
+  height: 55px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.title-input::placeholder {
+  color: #e1e1e1;
+}
+
+.textarea {
+  width: 984px;
+  height: 320px;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  padding-left: 20px; /* This is the equivalent of px-5 (padding-left and padding-right: 20px) */
+  padding-right: 20px;
+  padding-top: 16px; /* This is the equivalent of py-4 (padding-top and padding-bottom: 16px) */
+  padding-bottom: 16px;
+}
+
+.textarea::placeholder {
+  color: #e1e1e1; /* Assuming this is the color for main-orange */
+}
+
+.file-container {
+  width: 984px;
+  height: 55px;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background-color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.hashtag {
+  width: 984px;
+  height: 55px;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  padding-left: 20px; 
+  padding-right: 20px;
+  padding-top: 16px; 
+  padding-bottom: 16px;
+}
