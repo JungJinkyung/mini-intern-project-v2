@@ -16,8 +16,8 @@ export const dataSource = new DataSource({
   password: 'wlsrud123!',
   database: 'weird_sector_db',
   entities: [Auth, Post, User],
-  synchronize: false,
+  synchronize: true, // 운영을 위해서 false
   bigNumberStrings: false,
   // migrations: ['./src/migrations/*.ts'],
-  // migrationsTableName: 'typeorm_migrations',
+  // migrationsTableName: 'typeorm_migrations', // 운영을 위해 있다.
 });

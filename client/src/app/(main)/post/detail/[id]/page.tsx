@@ -6,16 +6,17 @@ import HashTag from '@/app/components/tags/hash-tag';
 import { useAuth } from '@/contexts';
 import { processDate } from '@/utils/process-date';
 import { processHashtag } from '@/utils/process-hash-tag';
-import { getEmail } from '@/utils/save-email';
-import { usePathname } from 'next/navigation';
+import { getToken } from '@/utils/token';
+import { useParams } from 'next/navigation';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { FaChevronLeft } from 'react-icons/fa';
 
 export default () => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  const id = usePathname().split('/')[3];
+  
+  const {id} = useParams()
   const { isLoggedIn } = useAuth();
+  const token = getToken()
 
   const [post, setPost] = useState<Nullable<Post>>(null);
   const [nickname, setNickname] = useState<string>('');
@@ -25,13 +26,20 @@ export default () => {
     getNickname()
     getPostDetail()
   }, []);
+
+
+  console.log(nickname)
   
   const getNickname= () => {
-    const email = getEmail();
-
-    fetch(`${process.env.NEXT_PUBLIC_API_HOST}/users/${email}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_HOST}/users/me`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }})
         .then((res) => res.json())
         .then((res: any) => {
+          console.log(res)
+
           setNickname(res.nickname);
         });
   }
@@ -69,12 +77,14 @@ export default () => {
       {
         method: 'PATCH',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(commentData)
       }
     ).then(async (res) => {
       if (!res.ok) {
+        alert('로그인이 필요한 서비스입니다.')
         throw new Error('Failed to add comment');
       }
 

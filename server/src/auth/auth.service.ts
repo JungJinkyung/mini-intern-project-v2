@@ -75,7 +75,7 @@ export class AuthService {
     };
 
     return this.jwtService.sign(payload, {
-      secret: 'JWT_SECRET',
+      secret: process.env.JWT_SECRET,
       expiresIn: isRefreshToken ? 3600 : 300,
     });
   }

@@ -48,6 +48,15 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
+  getUserByToken(user: any) {
+    return this.usersRepository.findOne({
+      where: {
+        email: user.email,
+        id: user.id,
+      },
+    });
+  }
+
   getUserByEmail(email: string) {
     return this.usersRepository.findOne({
       where: {

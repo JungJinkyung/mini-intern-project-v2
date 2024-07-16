@@ -6,7 +6,9 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { CreatePostDto } from './dto/create-post.dto';
 import { PostsService } from './posts.service';
@@ -49,12 +51,14 @@ export class PostsController {
   }
 
   // 3) POST /posts
+  @UseGuards(JwtAuthGuard)
   @Post()
   postPosts(@Body() createPostDto: CreatePostDto) {
     return this.postsService.create(createPostDto);
   }
 
   // 4) POST /posts/id/comments
+  @UseGuards(JwtAuthGuard)
   @Patch(':id/comments')
   addComment(
     @Param('id') id: number,
@@ -63,6 +67,8 @@ export class PostsController {
     return this.postsService.addComment(+id, createCommentDto);
   }
 
+  // 5) DELETE /posts/id
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   deletePost(@Param('id') id: number) {
     return this.postsService.delete(id);

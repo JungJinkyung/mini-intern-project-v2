@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@/app/components/buttons/default-button';
-import { getEmail } from '@/utils/save-email';
+import { getToken } from '@/utils/token';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
@@ -9,6 +9,7 @@ import styles from './page.module.css';
 export default () => {
   const router = useRouter();
   const {category} = useParams();
+  const token = getToken()
 
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
@@ -20,13 +21,17 @@ export default () => {
   }, []);
   
   const getMeData = () => {
-    const email = getEmail();
 
-    fetch(`${process.env.NEXT_PUBLIC_API_HOST}/users/${email}`)
-        .then((res) => res.json())
-        .then((res: any) => {
-          setNickname(res.nickname);
-        });
+    fetch(`${process.env.NEXT_PUBLIC_API_HOST}/users/me`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((res) => res.json())
+      .then((res: any) => {
+        setNickname(res.nickname);
+      });
   }
 
   const handleCreatePost = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -47,16 +52,25 @@ export default () => {
     fetch(`${process.env.NEXT_PUBLIC_API_HOST}/posts`, {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(body)
     })
       .then((res) => res.json())
       .then((res: any) => {
-        res.message && alert(res.message);
+        if(!res.ok) {
+          res.message && alert("로그인이 필요한 서비스입니다. ");
+        }
 
-        router.push(`/home/${category}`);
-      });
+        if(res.statusCode === 401) {
+          throw new Error("로그인 중 서버에서 문제가 발생했습니다.")
+        }
+
+        router.push(`/post/${category}`);
+      }).catch((error) => {
+        console.log(error)
+      })
   }
 
   return (
@@ -84,7 +98,7 @@ export default () => {
             placeholder={'제목을 입력해주세요.'}
           />
         </div>
-        <div className='flex gap-x-2'>
+        <div className={'flex gap-x-2'}>
           <h2 className={`${styles.title} pt-3`}>내용</h2>
           <textarea
             className={styles.textarea}

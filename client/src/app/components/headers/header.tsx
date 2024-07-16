@@ -1,7 +1,6 @@
 'use client';
 
 import { useAuth } from '@/contexts';
-import { clearEmail } from '@/utils/save-email';
 import { clearToken, getToken } from '@/utils/token';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -20,7 +19,6 @@ export default () => {
 
   const handleLogout = () => {
     clearToken();
-    clearEmail();
 
     setIsLoggedIn(false);
 

@@ -44,6 +44,8 @@ export class PostsService {
   ) {}
 
   async findAll(category: string) {
+    console.log('env check', process.env.JWT_SECRET);
+
     // 모든 레포지토리의 함수는 비동기이다.
     return this.postsRepository.find({
       where: { category },

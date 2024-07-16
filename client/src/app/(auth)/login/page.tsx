@@ -3,7 +3,6 @@
 import Button from '@/app/components/buttons/default-button';
 import LoginInput from '@/app/components/inputs/login-input';
 import { useAuth } from '@/contexts';
-import { saveEmail } from '@/utils/save-email';
 import { saveToken } from '@/utils/token';
 import validateLoginInputs from '@/utils/validate-login-inputs';
 import Link from 'next/link';
@@ -38,17 +37,15 @@ export default () => {
       .then((res) => res.json())
       .then((res: any) => {
         res.message && alert(res.message);
-
-        if (res.statusCode === 401) {
+        
+        if (res.statusCode === 401) { // !res.ok 로 해도 된다.
           throw new Error('로그인에 실패했습니다! 😱');
         }
 
         saveToken(res);
-        saveEmail(email);
 
         setIsLoggedIn(true);
 
-        alert('로그인에 성공했습니다. 🎉');
         router.push('/post/free');
       })
       .catch((error) => console.log(error)); // ⭐️ 이렇게 해야 에러가 잡힌다.
