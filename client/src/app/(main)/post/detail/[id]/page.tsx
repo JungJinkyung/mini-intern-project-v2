@@ -2,6 +2,7 @@
 
 import CommentButton from '@/app/components/buttons/comment-button';
 import CommentList from '@/app/components/lists/comment-list';
+import AlertModal from '@/app/components/modals/alert-modal/alert-modal';
 import HashTag from '@/app/components/tags/hash-tag';
 import { useAuth } from '@/contexts';
 import { processDate } from '@/utils/process-date';
@@ -21,15 +22,15 @@ export default () => {
   const [post, setPost] = useState<Nullable<Post>>(null);
   const [nickname, setNickname] = useState<string>('');
   const [content, setContent] = useState<string>('');
+  const [alertModalOpened, setAlertModalOpened] = useState<boolean>(false)
+  const [alertModalTitle, setAlertModalTitle] = useState<string>('알림')
+  const [alertModalBody, setAlertModalBody] = useState<string>('')
 
   useEffect(() => {
     getNickname()
     getPostDetail()
   }, []);
 
-
-  console.log(nickname)
-  
   const getNickname= () => {
     fetch(`${process.env.NEXT_PUBLIC_API_HOST}/users/me`, {
       headers: {
@@ -38,8 +39,6 @@ export default () => {
       }})
         .then((res) => res.json())
         .then((res: any) => {
-          console.log(res)
-
           setNickname(res.nickname);
         });
   }
@@ -60,7 +59,8 @@ export default () => {
 
   const handleAddComment = async () => {
     if (!isLoggedIn) {
-      alert('✅ 로그인이 필요한 서비스 입니다!');
+      setAlertModalBody('✅ 로그인이 필요한 서비스 입니다!')
+      setAlertModalOpened(true)
     }
 
     createComment()
@@ -84,7 +84,9 @@ export default () => {
       }
     ).then(async (res) => {
       if (!res.ok) {
-        alert('로그인이 필요한 서비스입니다.')
+        setAlertModalBody('✅ 로그인이 필요한 서비스 입니다!')
+        setAlertModalOpened(true)
+
         throw new Error('Failed to add comment');
       }
 
@@ -185,6 +187,16 @@ export default () => {
           </main>
         </div>
       )}
+
+      {alertModalOpened && (
+          <AlertModal
+            title={alertModalTitle}
+            body={alertModalBody}
+            confirmText={'확인'}
+            setModalOpened={setAlertModalOpened}
+          />
+        )
+      }
     </>
   );
 };

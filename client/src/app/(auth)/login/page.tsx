@@ -21,8 +21,8 @@ export default () => {
     email: '',
     password: ''
   });
-  const [alertModalOpened, setAlertModalOpened] = useState<boolean>(true)
-  const [alertModalTitle, setAlertModalTitle] = useState<string>("로그인")
+  const [alertModalOpened, setAlertModalOpened] = useState<boolean>(false)
+  const [alertModalTitle, setAlertModalTitle] = useState<string>("알림")
   const [alertModalBody, setAlertModalBody] = useState<string>("")
 
   const fetchLogin = () => {
