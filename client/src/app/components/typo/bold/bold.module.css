@@ -1,0 +1,7 @@
+.bold {
+  font-weight: 700;
+  line-height: 150%;
+  letter-spacing: -0.3px;
+  word-break: break-word;
+  white-space: break-spaces;
+}
