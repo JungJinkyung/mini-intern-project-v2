@@ -2,6 +2,7 @@
 
 import Button from '@/app/components/buttons/default-button';
 import LoginInput from '@/app/components/inputs/login-input';
+import AlertModal from '@/app/components/modals/alert-modal/alert-modal';
 import { useAuth } from '@/contexts';
 import { saveToken } from '@/utils/token';
 import validateLoginInputs from '@/utils/validate-login-inputs';
@@ -20,6 +21,9 @@ export default () => {
     email: '',
     password: ''
   });
+  const [alertModalOpened, setAlertModalOpened] = useState<boolean>(true)
+  const [alertModalTitle, setAlertModalTitle] = useState<string>("로그인")
+  const [alertModalBody, setAlertModalBody] = useState<string>("")
 
   const fetchLogin = () => {
     const body = {
@@ -36,9 +40,11 @@ export default () => {
     })
       .then((res) => res.json())
       .then((res: any) => {
-        res.message && alert(res.message);
-        
         if (res.statusCode === 401) { // !res.ok 로 해도 된다.
+
+          setAlertModalBody(res.message)
+          setAlertModalOpened(true)
+          
           throw new Error('로그인에 실패했습니다! 😱');
         }
 
@@ -48,7 +54,9 @@ export default () => {
 
         router.push('/post/free');
       })
-      .catch((error) => console.log(error)); // ⭐️ 이렇게 해야 에러가 잡힌다.
+      .catch((error) => {
+        console.log("error", error)
+      }); // ⭐️ 이렇게 해야 에러가 잡힌다.
   }
 
   const handleLogin = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -60,59 +68,71 @@ export default () => {
   };
 
   return (
-    <div 
-      className={styles.container}
-    >
-      <h1 
-        className={styles.title}>로그인
-      </h1>
+    <>
       <div 
-        className={'flex flex-col gap-y-2'}
+        className={styles.container}
       >
-        <LoginInput
-          type={'email'}
-          state={email}
-          setState={setEmail}
-          placeholder={'이메일 주소'}
-        />
-        {errors.email && <p className={styles.error}>{errors.email}</p>}
-        <LoginInput
-          type={'password'}
-          state={password}
-          setState={setPassword}
-          placeholder={'비밀번호 입력'}
-        />
-        {errors.password && <p className={styles.error}>{errors.password}</p>}
-      </div>
-      <Button
-        color={'black'}
-        size={'xl'}
-        className={'my-3'}
-        onClick={(e: MouseEvent<HTMLButtonElement>) => {
-          handleLogin(e);
-        }}>
-        로그인
-      </Button>
-
-      <div>
-        <ul 
-          className={'flex text-sm'}
+        <h1 
+          className={styles.title}>로그인
+        </h1>
+        <div 
+          className={'flex flex-col gap-y-2'}
         >
-          <li 
-            className={styles['find-item']}>아이디 찾기
-          </li>
-          <li 
-            className={styles['find-item']}>비밀번호 찾기
-          </li>
-          <li 
-            className='px-8 my-1'
+          <LoginInput
+            type={'email'}
+            state={email}
+            setState={setEmail}
+            placeholder={'이메일 주소'}
+          />
+          {errors.email && <p className={styles.error}>{errors.email}</p>}
+          <LoginInput
+            type={'password'}
+            state={password}
+            setState={setPassword}
+            placeholder={'비밀번호 입력'}
+          />
+          {errors.password && <p className={styles.error}>{errors.password}</p>}
+        </div>
+        <Button
+          color={'black'}
+          size={'xl'}
+          className={'my-3'}
+          onClick={(e: MouseEvent<HTMLButtonElement>) => {
+            handleLogin(e);
+          }}>
+          로그인
+        </Button>
+
+        <div>
+          <ul 
+            className={'flex text-sm'}
           >
-            <Link 
-              href='/registration'>회원가입
-            </Link>
-          </li>
-        </ul>
+            <li 
+              className={styles['find-item']}>아이디 찾기
+            </li>
+            <li 
+              className={styles['find-item']}>비밀번호 찾기
+            </li>
+            <li 
+              className='px-8 my-1'
+            >
+              <Link 
+                href='/registration'>회원가입
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+
+      {alertModalOpened && (
+          <AlertModal
+            title={alertModalTitle}
+            body={alertModalBody}
+            confirmText={'확인'}
+            setModalOpened={setAlertModalOpened}
+          />
+        )
+      }
+    </>
   );
 };
