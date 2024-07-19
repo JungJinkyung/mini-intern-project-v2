@@ -26,14 +26,14 @@ export default ({
           <div
             className={style.header}
           >
-            <Bold className={'text-2xl'}>
+            <Bold className={'text-lg'}>
               {title}
             </Bold>
           </div>
           <div 
             className={style.body}
           >
-            <Medium className={'text-xl'}>
+            <Medium className={'text-base'}>
               {body}
             </Medium>
           </div>
