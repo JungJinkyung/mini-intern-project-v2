@@ -1,20 +1,20 @@
 'use client';
 
+import LogoutModal from '@/app/components/modals/default-modal/default-modal';
 import { useAuth } from '@/contexts';
 import { clearToken, getToken } from '@/utils/token';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Button from '../buttons/default-button';
-import AlertModal from '../modals/alert-modal/alert-modal';
 
 export default () => {
   const router = useRouter()
   const { setIsLoggedIn, isLoggedIn } = useAuth();
 
-  const [alertModalOpened, setAlertModalOpened] = useState<boolean>(false)
-  const [alertModalTitle, setAlertModalTitle] = useState<string>('알림')
-  const [alertModalBody, setAlertModalBody] = useState<string>('')
+  const [logoutModalOpened, setLogoutModalOpened] = useState<boolean>(false);
+  const [logoutModalTitle, setLogoutModalTitle] = useState<string>('')
+  const [logoutModalBody, setLogoutModalBody] = useState<string>('')
 
   useEffect(() => {
     if (getToken()) {
@@ -23,12 +23,8 @@ export default () => {
   }, []);
 
   const handleLogout = () => {
-    clearToken();
-
-    setIsLoggedIn(false);
-
-    setAlertModalBody('로그아웃이 완료되었습니다.') // 여기에는 defaultModal을 넣어서 확인/취소를 넣는게 맞겠다.
-    setAlertModalOpened(true)
+    setLogoutModalBody('로그아웃 하시겠습니까?') 
+    setLogoutModalOpened(true)
   };
 
   const goToLoginPage = () => {
@@ -87,12 +83,20 @@ export default () => {
         </header>
       }
       {
-        alertModalOpened && (
-          <AlertModal
-            title={alertModalTitle}
-            body={alertModalBody}
+        logoutModalOpened && (
+          <LogoutModal
+            title={"로그아웃"}
+            body={logoutModalBody}
             confirmText={'확인'}
-            setModalOpened={setAlertModalOpened}
+            confirmHandler={() => {
+              clearToken();
+              setIsLoggedIn(false);
+              setLogoutModalOpened(false);
+            }}
+            cancelText={'취소'}
+            cancelHandler={() => {
+              setLogoutModalOpened(false);
+            }}
           />
         )
       }
