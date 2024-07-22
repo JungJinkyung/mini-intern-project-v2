@@ -21,7 +21,6 @@ export default () => {
   }, []);
   
   const getMeData = () => {
-
     fetch(`${process.env.NEXT_PUBLIC_API_HOST}/users/me`, {
       headers: {
         'Authorization': `Bearer ${token}`,
