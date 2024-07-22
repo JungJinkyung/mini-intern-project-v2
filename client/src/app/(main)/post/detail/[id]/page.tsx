@@ -138,7 +138,7 @@ export default () => {
               <FaChevronLeft 
                 className={'relative top-[15px] hover:cursor-pointer'}
                 onClick={(() => {
-                  router.back()
+                  router.push(`/post/${post.category}`)
                 })} 
               />
               <h1 
