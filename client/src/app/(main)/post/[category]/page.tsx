@@ -18,9 +18,6 @@ export default () => {
   const [alertModalOpened, setAlertModalOpened] = useState<boolean>(false);
   const [alertModalTitle, setAlertModalTitle] = useState<string>('알림');
   const [alertModalBody, setAlertModalBody] = useState<string>('');
-  const [logoutModalOpened, setLogoutModalOpened] = useState<boolean>(false);
-  const [logoutModalTitle, setLogoutModalTitle] = useState<string>('')
-  const [logoutModalBody, setLogoutModalBody] = useState<string>('')
 
   useEffect(() => {
     getPosts();
