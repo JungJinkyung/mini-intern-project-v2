@@ -23,7 +23,7 @@ import { UsersModule } from './users/users.module';
       password: 'wlsrud123!',
       database: 'weird_sector_db',
       entities: [Post, Auth, User],
-      synchronize: true,
+      synchronize: false,
     }),
     PostsModule,
     AuthModule,
