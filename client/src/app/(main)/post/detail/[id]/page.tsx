@@ -8,13 +8,14 @@ import { useAuth } from '@/contexts';
 import { processDate } from '@/utils/process-date';
 import { processHashtag } from '@/utils/process-hash-tag';
 import { getToken } from '@/utils/token';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { FaChevronLeft } from 'react-icons/fa';
 
 export default () => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   
+  const router = useRouter() 
   const {id} = useParams()
   const { isLoggedIn } = useAuth();
   const token = getToken()
@@ -22,16 +23,19 @@ export default () => {
   const [post, setPost] = useState<Nullable<Post>>(null);
   const [nickname, setNickname] = useState<string>('');
   const [content, setContent] = useState<string>('');
+  const [viewCount, setViewCount] = useState<number>(0)
   const [alertModalOpened, setAlertModalOpened] = useState<boolean>(false)
   const [alertModalTitle, setAlertModalTitle] = useState<string>('알림')
   const [alertModalBody, setAlertModalBody] = useState<string>('')
 
   useEffect(() => {
+    increaseViewCount()
+
     getNickname()
     getPostDetail()
   }, []);
 
-  const getNickname= () => {
+  const getNickname = () => {
     fetch(`${process.env.NEXT_PUBLIC_API_HOST}/users/me`, {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -57,7 +61,23 @@ export default () => {
       });
   }
 
-  const handleAddComment = async () => {
+  const increaseViewCount = () => {
+    fetch(
+      `http://localhost:8080/posts/${id}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    ).then((res) => {
+        return res.json();
+    }).then((data) => {
+      setViewCount(data.view_count)
+    })
+  }; 
+
+  const handleAddComment = () => {
     if (!isLoggedIn) {
       setAlertModalBody('✅ 로그인이 필요한 서비스 입니다!')
       setAlertModalOpened(true)
@@ -102,7 +122,6 @@ export default () => {
       console.log(err)
     })
   }
-  
 
   return (
     <>
@@ -117,7 +136,10 @@ export default () => {
               className={'flex gap-x-4 mb-[20px]'}
             >
               <FaChevronLeft 
-                className={'relative top-[15px]'} 
+                className={'relative top-[15px] hover:cursor-pointer'}
+                onClick={(() => {
+                  router.back()
+                })} 
               />
               <h1 
                 className={'text-[32px] font-bold'}>{post.title}
@@ -132,7 +154,7 @@ export default () => {
               >
                 {processDate(post.created_time)}
               </div>
-              <div>{`조회수 ${post.view_count ?? 0}`}</div>
+              <div>{`조회수 ${viewCount}`}</div>
             </div>
           </header>
           <main>

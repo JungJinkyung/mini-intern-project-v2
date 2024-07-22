@@ -3,39 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Post } from './entities/posts.entity';
 
-// export interface Post {
-//   id: number;
-//   category: string;
-//   title: string;
-//   content: string;
-//   created_time: string;
-//   comments: { nickname: string, created_time: string, content: string }
-// }
-
-// const posts: CreatePostDto[] = [
-//   {
-//     id: 1,
-//     category: 'free',
-//     title: '서버 테스트 임시 제목1',
-//     content: '서버 테스트 임시 본문1',
-//     created_time: '2024-07-04',
-//   },
-//   {
-//     id: 2,
-//     category: 'question',
-//     title: '서버 테스트 임시 제목2',
-//     content: '서버 테스트 임시 본문2',
-//     created_time: '2024-07-04',
-//   },
-//   {
-//     id: 3,
-//     category: 'free',
-//     title: '서버 테스트 임시 제목3',
-//     content: '서버 테스트 임시 본문3',
-//     created_time: '2024-07-04',
-//   },
-// ];
-
 @Injectable()
 export class PostsService {
   constructor(
@@ -44,8 +11,6 @@ export class PostsService {
   ) {}
 
   async findAll(category: string) {
-    console.log('env check', process.env.JWT_SECRET);
-
     // 모든 레포지토리의 함수는 비동기이다.
     return this.postsRepository.find({
       where: { category },
@@ -88,6 +53,7 @@ export class PostsService {
       title,
       content,
       hashtag,
+      view_count: 0,
       created_time: String(new Date()),
     });
 
@@ -137,6 +103,22 @@ export class PostsService {
     };
 
     post.comments = post.comments ? [...post.comments, comment] : [comment];
+
+    const updatedPost = await this.postsRepository.save(post);
+
+    return updatedPost;
+  }
+
+  async increaseViewCount(postId: number) {
+    const post = await this.postsRepository.findOne({
+      where: { id: postId },
+    });
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    post.view_count++;
 
     const updatedPost = await this.postsRepository.save(post);
 

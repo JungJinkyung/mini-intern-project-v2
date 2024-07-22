@@ -1,4 +1,4 @@
-export {};
+export { };
 
 declare global {
   interface Post {
@@ -10,7 +10,7 @@ declare global {
     file: string;
     hashtag: string;
     comments?: any[];
-    view_count: string;
+    view_count: number;
     user_id: string;
     nickname: string;
   }

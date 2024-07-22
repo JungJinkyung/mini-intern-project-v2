@@ -12,6 +12,9 @@ export class Post {
   @Column({ type: 'varchar', length: 45 })
   category: string;
 
+  @Column({ type: 'varchar', length: 45 })
+  view_count: number;
+
   @Column({ type: 'varchar', length: 255 })
   title: string;
 

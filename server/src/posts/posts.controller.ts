@@ -57,7 +57,7 @@ export class PostsController {
     return this.postsService.create(createPostDto);
   }
 
-  // 4) POST /posts/id/comments
+  // 4) PATCH /posts/id/comments
   @UseGuards(JwtAuthGuard)
   @Patch(':id/comments')
   addComment(
@@ -72,5 +72,11 @@ export class PostsController {
   @Delete(':id')
   deletePost(@Param('id') id: number) {
     return this.postsService.delete(id);
+  }
+
+  // 6) PATCH /posts/id
+  @Patch(':id')
+  increaseViewCount(@Param('id') id: number) {
+    return this.postsService.increaseViewCount(+id);
   }
 }
