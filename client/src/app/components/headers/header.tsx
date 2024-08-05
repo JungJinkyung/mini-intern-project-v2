@@ -10,7 +10,7 @@ import Button from '../buttons/default-button';
 
 export default () => {
   const router = useRouter()
-  const { setIsLoggedIn, isLoggedIn } = useAuth();
+  const { setIsLoggedIn, isLoggedIn, setNickname } = useAuth();
 
   const [logoutModalOpened, setLogoutModalOpened] = useState<boolean>(false);
   const [logoutModalTitle, setLogoutModalTitle] = useState<string>('')
@@ -44,20 +44,20 @@ export default () => {
               className={'flex items-center space-x-4'}
             >
               <Link 
-                href='/post/free'
+                href={'/post/free'}
                 className={'text-2xl font-bold text-red-MAIN'}>TestSite
               </Link>
               <div 
                 className={'text-gray-800 text-lg flex'}
               >
                 <Link 
-                  href='/post/free' 
+                  href={'/post/free'}
                   className={'px-3 py-2 hover:text-gray-300'}
                 >
                   게시판
                 </Link>
                 <Link 
-                  href='/dashboard' 
+                  href={'/dashboard'} 
                   className={'px-3 py-2 hover:text-gray-300'}
                 >
                   대시보드
@@ -91,6 +91,7 @@ export default () => {
             confirmHandler={() => {
               clearToken();
               setIsLoggedIn(false);
+              setNickname('')
               setLogoutModalOpened(false);
             }}
             cancelText={'취소'}
